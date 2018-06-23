@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "lib": ["es2015", "es2017"],
+    "skipLibCheck": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "removeComments": false,
+    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "noErrorTruncation": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["node_modules/@types", "node_modules/objection/typings"]
+  },
+  "exclude": ["node_modules", "dist"]
+}

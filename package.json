@@ -1,0 +1,96 @@
+{
+  "name": "infrastructure",
+  "version": "0.0.1",
+  "description": "A small library that adds common repository implementations",
+  "author": "DeveloperTown",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://developertown.visualstudio.com/DefaultCollection/Development%20Organization/_git/infrastructure"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "db:knex": "knex --debug --knexfile src/postgres/__tests__/knexfile.ts",
+    "db:generate:migration": "npm run db:knex -- migrate:make -x ts",
+    "db:migrate": "npm run db:knex -- migrate:latest",
+    "db:migrate:rollback": "npm run db:knex -- migrate:rollback",
+    "db:generate:seed": "npm run db:knex -- seed:make -x ts",
+    "db:seed": "npm run db:knex -- seed:run",
+    "test": "npm run db:migrate && TEST_REPORT_PATH=./coverage NODE_ENV=test jest $@",
+    "test:watch": "npm run test -- --watchAll",
+    "test:coverage": "npm run test -- --coverage=true"
+  },
+  "dependencies": {
+    "@developertown/core": "file:../core",
+    "bluebird": "^3.5.1",
+    "inflected": "^2.0.3",
+    "inversify": "^4.3.0",
+    "knex": "^0.14.2",
+    "lodash": "^4.17.4",
+    "pg": "^7.4.1",
+    "reflect-metadata": "^0.1.12",
+    "request": "^2.83.0",
+    "rollbar": "^2.3.7",
+    "sequelize": "^4.32.1",
+    "sequelize-typescript": "^0.5.0",
+    "uuid": "^3.1.0",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/faker": "^4.1.2",
+    "@types/inflected": "^1.1.29",
+    "@types/jest": "^23.1.1",
+    "@types/knex": "^0.14.4",
+    "@types/lodash": "^4.14.91",
+    "@types/node": "^10.3.4",
+    "@types/pg": "^7.4.1",
+    "@types/sequelize": "^4.27.4",
+    "@types/uuid": "^3.4.3",
+    "@types/winston": "^2.3.6",
+    "faker": "^4.1.0",
+    "jest": "^23.1.0",
+    "jest-junit-reporter": "^1.1.0",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "~(.*)$": "<rootDir>/$1"
+    },
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "transform": {
+      ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/*.test.(ts|tsx)"
+    ],
+    "testResultsProcessor": "./node_modules/jest-junit-reporter",
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx,js}"
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "cobertura"
+    ]
+  }
+}
