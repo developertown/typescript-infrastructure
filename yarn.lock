@@ -16,8 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@developertown/core@file:../core":
+"@developertown/core@git+https://github.com/developertown/core.git#a68ab42c36ebaefa5be12ad6602e2cdc2544f73e":
   version "0.0.1"
+  resolved "git+https://github.com/developertown/core.git#a68ab42c36ebaefa5be12ad6602e2cdc2544f73e"
 
 "@types/bluebird@*", "@types/bluebird@^3.5.20":
   version "3.5.20"

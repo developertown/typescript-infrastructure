@@ -26,7 +26,7 @@
     "test:coverage": "npm run test -- --coverage=true"
   },
   "dependencies": {
-    "@developertown/core": "file:../core",
+    "@developertown/core": "git+https://github.com/developertown/core.git#a68ab42c36ebaefa5be12ad6602e2cdc2544f73e",
     "bluebird": "^3.5.1",
     "inflected": "^2.0.3",
     "inversify": "^4.3.0",
