@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      target: development
+    restart: on-failure
+    environment:
+      DB_HOST: db
+      DB_USER: infrastructure
+      DB_PASS: infrastructure
+      DB_PORT: 5432
+    volumes:
+      - ../../jest.config.js:/app/jest.config.js
+      - ../../package.json:/app/package.json
+      - ../../tsconfig.json:/app/tsconfig.json
+      - ../../tslint.json:/app/tslint.json
+      - ../../yarn.lock:/app/yarn.lock
+      - ../../src:/app/src
+      - node_modules:/app/node_modules
+    networks:
+      - backoffice
+    links:
+      - db
+
+  db:
+    image: "postgres:9.6.2-alpine"
+    environment:
+      - POSTGRES_USER=infrastructure
+      - POSTGRES_PASSWORD=infrastructure
+      - POSTGRES_MULTIPLE_DATABASES="infrastructure-test"
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./create_multi_dbs.sh:/docker-entrypoint-initdb.d/create_multi_dbs.sh
+      - db-pgdata:/var/lib/postgresql/data
+      - ../../tmp/dbdumps:/dbdumps
+    networks:
+      - backoffice
+
+volumes:
+  node_modules:
+  db-pgdata:
+
+networks:
+  backoffice:

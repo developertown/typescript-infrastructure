@@ -1,20 +1,86 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# DeveloperTown Infrastructure
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+A small library that adds common repository implementations
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Installation
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+`npm install @developertown/infrastructure`
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Usage
+
+```ts
+// core/src/townie.ts
+
+import { BaseEntity } from "@developertown/core";
+
+export class Townie extends BaseEntity {
+  public firstName: string;
+  public lastName: string;
+}
+```
+
+```ts
+// infrastructure/src/postgres/models/townie.ts
+
+import { Column, CreatedAt, DeletedAt, Length, Model, Sequelize, Table, UpdatedAt } from "sequelize-typescript";
+
+@Table({ tableName: "townies" })
+export default class Townie extends Model<Townie> {
+  @Length({ min: 1, max: 255 })
+  @Column({ allowNull: false })
+  public firstName: string;
+
+  @Length({ min: 1, max: 255 })
+  @Column({ allowNull: false })
+  public lastName: string;
+
+  @CreatedAt
+  @Column({ type: Sequelize.DATE })
+  public createdAt: Date;
+
+  @UpdatedAt
+  @Column({ type: Sequelize.DATE })
+  public updatedAt: Date;
+
+  @DeletedAt
+  @Column({ type: Sequelize.DATE })
+  public deletedAt: Date | null;
+}
+```
+
+```ts
+// infrastructure/src/townies/townieMapper.ts
+
+import { IMapper } from "@developertown/core";
+import { Townie } from "~/core";
+import { Townie as SequelizeTownie } from "~/infrastructure";
+
+class TownieMapper implements IMapper<Townie> {
+  public map(resource: SequelizeTownie): Townie {
+    // Convert DB Model to Domain Entity.  In some cases a library like automapper might be a good choice.
+    return new Townie(resource);
+  }
+}
+```
+
+```ts
+// infrastructure/src/townies/townieRepository.ts
+
+import { SequelizeRepository } from "@developertown/infrastructure";
+import { Townie } from "~/core";
+import { Townie as SequelizeTownie } from "~/infrastructure";
+
+export class TownieRepository extends SequelizeRepository<Townie, SequelizeTownie> {
+  constructor() {
+    super(SequelizeTownie, new TownieMapper());
+  }
+}
+```
+
+## Tests
+
+### With Docker
+
+```
+docker-compose -p typescript-infrastructure -f ./deployment/development/docker-compose.yml -f ./deployment/development/docker-compose.test.yml run app
+```
