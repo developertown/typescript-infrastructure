@@ -79,4 +79,8 @@ export class TownieRepository extends SequelizeRepository<Townie, SequelizeTowni
 
 ## Tests
 
-`npm test`
+### With Docker
+
+```
+docker-compose -p typescript-infrastructure -f ./deployment/development/docker-compose.yml -f ./deployment/development/docker-compose.test.yml run app
+```

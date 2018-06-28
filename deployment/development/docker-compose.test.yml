@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  app:
+    command: bash -c 'mkdir -p coverage && yarn && npm run test:watch'
+    environment:
+      NODE_ENV: test
+      DB_NAME: infrastructure-test

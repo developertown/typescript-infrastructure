@@ -14,19 +14,22 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
     "db:knex": "knex --debug --knexfile src/postgres/__tests__/knexfile.ts",
     "db:generate:migration": "npm run db:knex -- migrate:make -x ts",
     "db:migrate": "npm run db:knex -- migrate:latest",
     "db:migrate:rollback": "npm run db:knex -- migrate:rollback",
     "db:generate:seed": "npm run db:knex -- seed:make -x ts",
     "db:seed": "npm run db:knex -- seed:run",
-    "test": "npm run db:migrate && TEST_REPORT_PATH=./coverage NODE_ENV=test jest $@",
+    "build": "tsc",
+    "watch": "npm run build -- -w",
+    "clean": "rm -rf dist; rm -rf coverage",
+    "start": "echo \"Error: no start specified\" && exit 1",
+    "test": "npm run db:migrate && TEST_REPORT_PATH=./coverage NODE_ENV=test ./node_modules/.bin/jest",
     "test:watch": "npm run test -- --watchAll",
     "test:coverage": "npm run test -- --coverage=true"
   },
   "dependencies": {
-    "@developertown/core": "git+https://github.com/developertown/core.git#a68ab42c36ebaefa5be12ad6602e2cdc2544f73e",
+    "@developertown/core": "git+https://github.com/developertown/typescript-core.git#72a30850be060278b15ed4001ae8b794297a5a90",
     "bluebird": "^3.5.1",
     "inflected": "^2.0.3",
     "inversify": "^4.3.0",
@@ -57,40 +60,8 @@
     "jest": "^23.1.0",
     "jest-junit-reporter": "^1.1.0",
     "ts-jest": "^22.4.6",
+    "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "typescript": "^2.9.2"
-  },
-  "jest": {
-    "modulePaths": [
-      "<rootDir>"
-    ],
-    "moduleNameMapper": {
-      "~(.*)$": "<rootDir>/$1"
-    },
-    "testEnvironment": "node",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "node"
-    ],
-    "transform": {
-      ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "**/__tests__/*.test.(ts|tsx)"
-    ],
-    "testResultsProcessor": "./node_modules/jest-junit-reporter",
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx,js}"
-    ],
-    "coverageDirectory": "./coverage",
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "cobertura"
-    ]
   }
 }
