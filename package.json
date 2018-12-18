@@ -22,6 +22,7 @@
     "db:seed": "npm run db:knex -- seed:run",
     "build": "tsc",
     "watch": "npm run build -- -w",
+    "lint": "./node_modules/.bin/tslint -p .",
     "clean": "rm -rf dist; rm -rf coverage",
     "start": "echo \"Error: no start specified\" && exit 1",
     "test": "npm run db:migrate && TEST_REPORT_PATH=./coverage NODE_ENV=test ./node_modules/.bin/jest",
@@ -29,7 +30,7 @@
     "test:coverage": "npm run test -- --coverage=true"
   },
   "dependencies": {
-    "@developertown/core": "git+https://github.com/developertown/typescript-core.git#72a30850be060278b15ed4001ae8b794297a5a90",
+    "@developertown/core": "git+https://github.com/developertown/typescript-core.git#a355f780c25806b61d6cc64f4c7788878707c894",
     "bluebird": "^3.5.1",
     "inflected": "^2.0.3",
     "inversify": "^4.3.0",
@@ -48,10 +49,10 @@
     "@types/bluebird": "^3.5.20",
     "@types/faker": "^4.1.2",
     "@types/inflected": "^1.1.29",
-    "@types/jest": "^23.1.1",
+    "@types/jest": "^23.3.10",
     "@types/knex": "^0.14.4",
     "@types/lodash": "^4.14.91",
-    "@types/node": "^10.3.4",
+    "@types/node": "^10.12.15",
     "@types/pg": "^7.4.1",
     "@types/sequelize": "^4.27.4",
     "@types/uuid": "^3.4.3",
@@ -59,9 +60,9 @@
     "faker": "^4.1.0",
     "jest": "^23.1.0",
     "jest-junit-reporter": "^1.1.0",
-    "ts-jest": "^22.4.6",
-    "ts-node": "^7.0.0",
-    "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "~3.1.6"
   }
 }

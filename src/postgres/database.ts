@@ -1,6 +1,6 @@
 "use strict";
 
-import { IDatabase, Identifiers, ILogger } from "@developertown/core";
+import { IDatabase, ILogger, Logger } from "@developertown/core";
 import * as fs from "fs";
 import * as Inflected from "inflected";
 import { inject, injectable, unmanaged } from "inversify";
@@ -9,7 +9,7 @@ import { Sequelize } from "sequelize-typescript";
 
 @injectable()
 export class Database implements IDatabase {
-  constructor(@unmanaged() protected sequelize: Sequelize, @inject(Identifiers.Logger) protected logger: ILogger) {}
+  constructor(@unmanaged() protected sequelize: Sequelize, @inject(Logger) protected logger: ILogger) {}
 
   public async connect(): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {

@@ -80,7 +80,7 @@ let Database = class Database {
 };
 Database = __decorate([
     inversify_1.injectable(),
-    __param(0, inversify_1.unmanaged()), __param(1, inversify_1.inject(core_1.Identifiers.Logger)),
+    __param(0, inversify_1.unmanaged()), __param(1, inversify_1.inject(core_1.Logger)),
     __metadata("design:paramtypes", [sequelize_typescript_1.Sequelize, Object])
 ], Database);
 exports.Database = Database;
