@@ -34,7 +34,7 @@
     "bluebird": "^3.5.1",
     "inflected": "^2.0.3",
     "inversify": "^4.3.0",
-    "knex": "^0.14.2",
+    "knex": "^2.3.0",
     "lodash": "^4.17.4",
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
